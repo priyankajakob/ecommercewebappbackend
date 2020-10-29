@@ -32,3 +32,7 @@ module.exports.showUser = (req,res)=>{
         res.status(400).json({error:err})
     })
 }
+
+// module.exports.getUserById = (req,res,next,id)=>{
+
+// }
