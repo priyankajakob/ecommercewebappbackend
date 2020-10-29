@@ -1,0 +1,5 @@
+const jwt = require('jsonwebtoken')
+const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1Zjk3ZWE0MTFkNGJlZTNlZjRhYzNjM2QiLCJuYW1lIjoiUGlua3kiLCJlbWFpbCI6InBpbmt5amFjb2JAZ21haWwuY29tIiwicm9sZSI6MCwiY3JlYXRlZEF0IjoxNjAzNzkxNDI3NjMwLCJpYXQiOjE2MDM3OTE0Mjd9.Vh9KD2no4CUp9XVkvxDRxZvZVDVCkdrfEFaMdIO4p3c"
+
+console.log(jwt.verify(token,"iwillwin"))
+//json verify return the tokenData for which token was generated.
