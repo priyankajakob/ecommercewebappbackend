@@ -9,7 +9,7 @@ const isSignedIn = (req,res,next)=>{
     User.findByToken(token)
     .then((signedInUser)=>{
         if(!signedInUser)
-            return res.status(400).json({error:"TOKEN INVALID"})
+            return res.status(401).json({error:"TOKEN INVALID"})
         //Above is required when user was logged in and at same moment user got deleted in DB.
         const {_id,name,email,role}=signedInUser
         req.signedInUser = {
@@ -18,10 +18,11 @@ const isSignedIn = (req,res,next)=>{
             email,
             role
         }
+        req.token = token
         next()
     })
     .catch((err)=>{
-        res.status(400).json({error:err})
+        res.status(401).json({error:err})
     })
    
 }
