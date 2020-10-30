@@ -1,7 +1,8 @@
 
 const isAuthenticated = (req,res,next)=>{
 
-    let checker1 = req.signedInUser._id && req.params.id && req.signedInUser._id==req.params.id
+    // let checker1 = req.signedInUser._id && req.params.id && req.signedInUser._id==req.params.id
+    let checker1 = req.signedInUser && req.profile && req.signedInUser._id==req.profile._id
     let checker2 = req.signedInUser.role==2
     let checker = checker1 || checker2
     if(!checker)
