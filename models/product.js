@@ -3,8 +3,9 @@ const mongoose = require('mongoose')
 const productSchema = mongoose.Schema({
     name:{
         type:String,
-        required:true,
-        maxlength:15
+        required:[true,"name is required"],
+        unique:true,
+        maxlength:15,
     },
     description:{
         type:String,
@@ -22,7 +23,8 @@ const productSchema = mongoose.Schema({
         required:true
     },
     stock:{
-        type:Number
+        type:Number,
+        required:true
     },
     sold:{
         type:Number,

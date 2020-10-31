@@ -18,15 +18,15 @@ module.exports.getCategory = (req,res)=>{
 }
 
 module.exports.createCategory = (req,res)=>{
-    const { body } = req
+    const { body, signedInUser } = req
 
     const category = new Category(body)
     category.save()
     .then((category)=>{
-        res.json(category)
+        res.json({category,signedInUser})
     })
     .catch((err)=>{
-        console.log(err)
+        // console.log(err)
         res.status(400).json({error:err})
     })
 }
@@ -37,10 +37,10 @@ module.exports.getAllCategories = (req,res)=>{
         if(!categories.length)
           return res.status(400).json({error:"No categories yet"})
         
-        res.json({categories,signedInUser:req.signedInUser})
+        res.json({categories})
     })
     .catch((err)=>{
-        res.status(400).json({error:"Error fetching catagories from DB"})
+        res.status(400).json({error:"Error fetching catagories from DB",details:err})
     })
 }
 
@@ -52,7 +52,7 @@ module.exports.updateCategory = (req,res)=>{
         res.json(category)
     })
     .catch((err)=>{
-        res.status(400).json({error:"Error updating category"})
+        res.status(400).json({error:"Error updating category",details:err})
     })
 }
 
@@ -64,6 +64,6 @@ module.exports.deleteCategory = (req,res)=>{
         res.json({message : "Category deleted successfully"})
     })
     .catch((err)=>{
-        res.status(400).json({error:"Error deleting category"})
+        res.status(400).json({error:"Error deleting category",details:err})
     })
 }

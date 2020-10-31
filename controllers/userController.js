@@ -58,7 +58,7 @@ module.exports.getUser = (req,res)=>{
     req.profile.encry_password=undefined
     req.profile.tokens=undefined
 
-    return res.json(req.profile)
+    return res.json({user:req.profile})
 }
 
 module.exports.updateUser = (req,res)=>{
