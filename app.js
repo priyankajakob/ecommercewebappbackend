@@ -8,6 +8,7 @@ const authRoutes = require('../projbackend/routes/auth')
 const userRoutes = require('../projbackend/routes/user')
 const categoryRoutes = require('../projbackend/routes/category')
 const productRoutes = require('../projbackend/routes/product')
+const orderRoutes = require('../projbackend/routes/order')
 
 const app = express()
 
@@ -23,6 +24,7 @@ app.use('/',authRoutes)
 app.use('/',userRoutes)
 app.use('/',categoryRoutes)
 app.use('/',productRoutes)
+app.use('/',orderRoutes)
 
 //starting server
 app.listen(PORT,()=>{
