@@ -43,3 +43,27 @@ module.exports.getAllCategories = (req,res)=>{
         res.status(400).json({error:"Error fetching catagories from DB"})
     })
 }
+
+module.exports.updateCategory = (req,res)=>{
+    const { body } = req
+    const { _id } = req.collection
+    Category.findByIdAndUpdate({_id},{$set:body},{new:true,useFindAndModify:false})
+    .then((category)=>{
+        res.json(category)
+    })
+    .catch((err)=>{
+        res.status(400).json({error:"Error updating category"})
+    })
+}
+
+module.exports.deleteCategory = (req,res)=>{
+    const { _id } = req.collection
+    //we can remove category using category.remove also
+    Category.findByIdAndDelete({_id})
+    .then((category)=>{
+        res.json({message : "Category deleted successfully"})
+    })
+    .catch((err)=>{
+        res.status(400).json({error:"Error deleting category"})
+    })
+}

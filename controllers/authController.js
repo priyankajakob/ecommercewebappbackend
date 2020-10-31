@@ -65,6 +65,6 @@ module.exports.signout = (req,res)=>{
         res.json({message:"Signed Out!!"})
     })
     .catch((err)=>{
-        res.status(400).json({error:"error signing in"})
+        res.status(400).json({error:"error signing out"})
     })
 }

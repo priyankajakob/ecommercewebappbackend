@@ -32,7 +32,7 @@ const productSchema = mongoose.Schema({
         data:Buffer,
         contentType:String
     }
-},{timestamp:true})
+},{timestamps:true})
 
 const Product = mongoose.model('Product',productSchema)
 

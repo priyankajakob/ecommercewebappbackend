@@ -5,8 +5,9 @@ const {body} = require('express-validator')
 
 const { signup, signin, signout } = require('../controllers/authController')
 
-const {isSignedIn} = require('../middlewares/isSignedIn')
+const { isSignedIn } = require('../middlewares/isSignedIn')
 
+//Routes
 router.post('/signup',
 [
     body('email').isEmail().withMessage('must be a valid email address'),

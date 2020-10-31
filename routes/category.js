@@ -2,11 +2,18 @@ const express = require('express')
 const router = express.Router()
 
 
-const { createCategory, getCategoryById , getCategory, getAllCategories } = require('../controllers/categoryController')
+const { 
+    createCategory, 
+    getCategoryById , 
+    getCategory, 
+    updateCategory , 
+    deleteCategory, 
+    getAllCategories 
+    } = require('../controllers/categoryController')
+
 const { getUserById } = require('../controllers/userController')
 
 const { isSignedIn } = require('../middlewares/isSignedIn')
-const { isAuthenticated } = require('../middlewares/isAuthenticated')
 const { isAdmin } = require('../middlewares/isAdmin')
 
 //params
@@ -14,8 +21,19 @@ router.param("userId",getUserById)
 router.param("categoryId",getCategoryById)
 
 //actual routes
-router.get("/categories/:categoryId",isSignedIn,isAdmin,getCategory)
+
+//get
+router.get("/categories/:categoryId",getCategory)
+router.get("/categories",getAllCategories)
+
+//update
+router.put("/categories/:categoryId",isSignedIn,isAdmin,updateCategory)
+
+//delete
+router.delete("/categories/:categoryId",isSignedIn,isAdmin,deleteCategory)
+
+//create
 router.post("/categories",isSignedIn,isAdmin,createCategory)
-router.get("/categories",isSignedIn,isAdmin,getAllCategories)
+
 
 module.exports = router

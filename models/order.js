@@ -23,7 +23,7 @@ const orderSchema = new mongoose.Schema({
         ref:'User'
     }
 
-},{timestamp:true})
+},{timestamps:true})
 
 const Order = mongoose.model('Order',orderSchema)
 const ProductCart = mongoose.model('ProductCart',productCartSchema)

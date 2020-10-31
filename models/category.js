@@ -9,7 +9,7 @@ const categorySchema = mongoose.Schema({
     }
 },
 {
-    timestamp:true
+    timestamps:true
 })
 
 const Category = mongoose.model('Category',categorySchema)

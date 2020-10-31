@@ -1,6 +1,8 @@
 const {User} = require('../models/user')
 const {Order}=require('../models/order')
 
+// const {signoutUser} = require('../commonFunctions/signoutUser')
+
 module.exports.getAllUsers = (req,res) => {
 //check of signedInUser not present is not required since that case error is sent from custom middleware
  const {signedInUser}=req
@@ -62,7 +64,8 @@ module.exports.getUser = (req,res)=>{
 module.exports.updateUser = (req,res)=>{
     const { body } = req
     const { _id } = req.profile
-    
+    //console.log(body)
+
     User.findByIdAndUpdate({_id:_id},{$set:body},{new:true,useFindAndModify:false})
     .then((user)=>{
         if(!user)
@@ -72,6 +75,12 @@ module.exports.updateUser = (req,res)=>{
         console.log(user)
         user.encry_password=undefined,
         user.salt=undefined
+        // const {password,role,name,email} = body
+        // if(password || role || name || email)
+        // {
+        //    const {message,error} = signoutUser(user._id)
+        //    return res.json(message,error)
+        // }
         res.json(user)
     })
     .catch((err)=>{
