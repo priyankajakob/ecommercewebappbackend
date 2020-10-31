@@ -1,4 +1,5 @@
 const {User} = require('../models/user')
+const {Order}=require('../models/order')
 
 module.exports.getAllUsers = (req,res) => {
 //check of signedInUser not present is not required since that case error is sent from custom middleware
@@ -74,6 +75,18 @@ module.exports.updateUser = (req,res)=>{
         res.json(user)
     })
     .catch((err)=>{
-        return res.status(400).json({error:"User not found"})
+        return res.status(400).json({error:"User update not successfull"})
+    })
+}
+
+module.exports.userOrderList = (req,res)=>{
+    const { _id :userId } = req.profile
+    const { signedInUser } = req
+    Order.find({user:userId}).populate("user","_id name")
+    .then((orders)=>{
+        res.json({orders,signedInUser})
+    })
+    .catch((err)=>{
+        res.status(400).json({error:"error finding orders"})
     })
 }
