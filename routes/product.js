@@ -8,12 +8,15 @@ const {
     createProduct,
     updateProduct,
     deleteProduct,
-    photo
+    photo,
+    getAllUniqueCategories
  } = require('../controllers/productController')
 
  const { isSignedIn } = require('../middlewares/isSignedIn')
  const { isAdmin } = require('../middlewares/isAdmin')
 
+ router.get("/products/categories",getAllUniqueCategories)
+ 
 //params
 router.param("productId",getProductById)
 
@@ -23,6 +26,7 @@ router.param("productId",getProductById)
 router.get("/products/:productId",getProduct)
 router.get("/products",getAllProducts)
 router.get("/products/photo/:productId",photo)
+
 
 //create
 router.post("/products",isSignedIn,isAdmin,createProduct)

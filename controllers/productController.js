@@ -23,19 +23,28 @@ module.exports.getProduct = (req,res)=>{
 }
 
 module.exports.getAllProducts = (req,res)=>{
-    Product.find().populate("category").sort("category")
+    let limit = req.query.limit ? Number(req.query.limit) : 8
+    let sortBy = req.query.sortBy ? req.query.sortBy : "_id"
+    Product.find().select("-photo").populate("category").sort([[sortBy,"desc"]]).limit(limit)
     .then((products)=>{
         if(!products.length)
             return res.status(400).json({error:"No products yet"})
         
-        products.forEach((product)=>{
-            product.photo=undefined
-        })
         res.json({products})
     })
     .catch((err)=>{
         // console.log(err)
         res.status(400).json({error:"Error fetching categories from DB",details:err})
+    })
+}
+
+module.exports.getAllUniqueCategories = (req,res)=>{
+    Product.distinct("category",{})
+    .then((categories)=>{
+        res.json({categories})
+    })
+    .catch((err)=>{
+        res.status(400).json({error:"No unique categories found"})
     })
 }
 
@@ -75,6 +84,8 @@ module.exports.createProduct = (req,res)=>{
         .then((product)=>{
             if(!product)
                 return res.json({error:"error saving to DB"})
+            
+            product.photo = undefined
             res.json({product})
         })
         .catch((err)=>{
@@ -113,6 +124,7 @@ module.exports.updateProduct = (req,res)=>{
         .then((product)=>{
             if(!product)
                 return res.json({error:"updation of product failed"})
+            product.photo = undefined
             res.json({product})
         })
         .catch((err)=>{
@@ -140,3 +152,26 @@ module.exports.photo = (req,res,next)=>{
     }
     next()
 }
+
+//middleware
+module.exports.updateStockAndSold = (req,res,next)=>{
+
+    let myOperations = req.body.order.products.map((product)=>{
+        return {
+            updateOne: {
+                filter : {_id : product._id},
+                update: {$inc:{stock : -product.count ,sold : +product.count}}
+            }
+        }
+    })
+
+    Product.bulkWrite(myOperations,{})
+    .then((product)=>{
+        next()
+    })
+    .catch((err)=>{
+        return res.status(400).json({error:"Bulk operations failed"})
+    })
+}
+
+
