@@ -79,6 +79,19 @@ module.exports.updateUser = (req,res)=>{
     })
 }
 
+module.exports.deleteUser = (req,res)=>{
+    const { _id } = req.profile
+    if(!_id)
+        return res.status(400).json({error:"Please provide the Id"})
+    User.findByIdAndDelete({_id})
+    .then((user)=>{
+        res.json({message:"User deleted successfully"})
+    })
+    .catch((err)=>{
+        res.status(400).json({error:"Error deleting the user"})
+    })
+}
+
 module.exports.userOrderList = (req,res)=>{
     const { _id :userId } = req.profile
     const { signedInUser } = req

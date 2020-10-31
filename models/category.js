@@ -4,8 +4,8 @@ const categorySchema = mongoose.Schema({
     name:{
         type:String,
         unique:true,
-        maxlength:12,
-        require:[true,"name is required"]
+        maxlength:35,
+        required:[true,"name is required"]
     }
 },
 {

@@ -6,6 +6,7 @@ const cors = require('cors')
 
 const authRoutes = require('../projbackend/routes/auth')
 const userRoutes = require('../projbackend/routes/user')
+const categoryRoutes = require('../projbackend/routes/category')
 
 const app = express()
 
@@ -19,6 +20,7 @@ app.use(cors())
 //routes
 app.use('/',authRoutes)
 app.use('/',userRoutes)
+app.use('/',categoryRoutes)
 
 //starting server
 app.listen(PORT,()=>{
