@@ -10,8 +10,8 @@ const { isSignedIn } = require('../middlewares/isSignedIn')
 //Routes
 router.post('/signup',
 [
-    body('email').isEmail().withMessage('must be a valid email address'),
-    body('password').isLength({min:5}).withMessage('must be of length 5')
+    body('email').isEmail().withMessage('Email must be a valid email address'),
+    body('password').isLength({min:5}).withMessage('Password must be of length 5')
 ],
 signup)
 

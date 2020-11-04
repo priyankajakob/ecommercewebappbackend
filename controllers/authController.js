@@ -4,7 +4,7 @@ const {validationResult} = require('express-validator')
 module.exports.signup=(req,res)=>{
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(422).json({ errors: errors.array()});
+        return res.status(422).json({ error: `${errors.array()[0].msg}`})
     }
     const {body}=req
     const user = new User(body)
@@ -28,7 +28,7 @@ module.exports.signin = (req,res)=>{
     //In case there are validation errors - like incorrect email format or password empty
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(422).json({ errors: errors.array()});
+        return res.status(422).json({ error: `${errors.array()[0].msg}`});
     }
 
     //When email and password are inputted, first it will try to find a user with that email and validate the password entered. Then on success, it will try to generate token for it.
