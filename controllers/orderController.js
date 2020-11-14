@@ -16,8 +16,9 @@ module.exports.getOrder = (req,res)=>{
 }
 
 module.exports.createOrder = (req,res)=>{
-    req.body.order.user = req.profile
-    const order = new Order(req.body.order)
+
+    req.body.user = req.profile
+    const order = new Order(req.body)
     order.save()
     .then((order)=>{
         res.json({order})

@@ -2,7 +2,10 @@ const express = require('express')
 const User = require('../models/user')
 
 const pushOrderIntoPurchaseList=(req,res,next)=>{
-    
+ 
+    if(JSON.stringify(req.body)==JSON.stringify({}))
+        return res.status(400).json({error:"Empty order details passed"})
+
     let purchases = []
     req.body.order.products.forEach((product)=>{
         const { _id, name, description, category, quantity } = product

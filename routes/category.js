@@ -11,7 +11,7 @@ const {
     getAllCategories 
     } = require('../controllers/categoryController')
 
-const { getUserById } = require('../controllers/userController')
+const { getUserById } = require('../controllers/userController') //this is used to assign req.profile with userId
 
 const { isSignedIn } = require('../middlewares/isSignedIn')
 const { isAdmin } = require('../middlewares/isAdmin')
