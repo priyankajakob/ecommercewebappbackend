@@ -54,15 +54,20 @@ module.exports.createProduct = (req,res)=>{
 
     form.parse(req,(err,fields,file)=>{
         if(err)
-         return res.status(400).json({
-             error:"problem with image"
-         })
+        {
+            // console.log(err)
+            return res.status(400).json({
+                error:"problem with image"
+            })
+        }
+       
         //destructure the fields
          const { name, description, price, stock, category } = fields
 
         //TODO : Restrictions on field
          if( !name  || !description || !price || !category || !stock)
          {
+             //console.log(name,description,price,stock,category)
              return res.status(400).json({error:"Please include all fields"})
          }
 
