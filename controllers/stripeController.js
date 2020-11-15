@@ -18,8 +18,8 @@ module.exports.makePayment = (req,res)=>{
     })
     .then((customer)=>{
         stripe.charges.create({
-            amount : amount,
-            currency : 'inr',
+            amount : amount*100,
+            currency : 'INR',
             customer:customer.id,
             receipt_email:token.email,
             shipping : {
