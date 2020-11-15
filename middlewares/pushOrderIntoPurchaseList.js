@@ -1,5 +1,5 @@
 const express = require('express')
-const User = require('../models/user')
+const {User} = require('../models/user')
 
 const pushOrderIntoPurchaseList=(req,res,next)=>{
  
@@ -7,20 +7,23 @@ const pushOrderIntoPurchaseList=(req,res,next)=>{
         return res.status(400).json({error:"Empty order details passed"})
 
     let purchases = []
+    // console.log(req.body.order)
     req.body.order.products.forEach((product)=>{
-        const { _id, name, description, category, quantity } = product
+        const { _id, name, description, category } = product
         purchases.push({
             _id,
             name,
             description,
             category,
-            quantity,
-            amount : req.body.order.amount,
-            transactionId: req.body.order.transactionId
+            quantity : product.count,
+            // amount : req.body.order.amount,
+            amount:product.price * product.count ,
+            transactionId: req.body.order.transaction_id
         })
     })
+    // console.log(purchases)
     //store this in DB
-    User.finOneAndUpdate(
+    User.findByIdAndUpdate(
         {_id:req.profile._id},
         {$push : { purchases : purchases }},
         {new:true}

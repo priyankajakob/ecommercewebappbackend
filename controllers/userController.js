@@ -40,6 +40,7 @@ module.exports.getAllUsers = (req,res) => {
 // }
 
 module.exports.getUserById = (req,res,next,id)=>{
+    // console.log(id)
     User.findById(id)
     .then((user)=>{
         if(!user)
@@ -48,6 +49,7 @@ module.exports.getUserById = (req,res,next,id)=>{
         next()
     })
     .catch((err)=>{
+        // console.log(err)
         res.status(400).json({error:"No user was found in DB"})
     })
 }

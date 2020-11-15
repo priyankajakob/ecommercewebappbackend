@@ -10,7 +10,7 @@ const {updateStockAndSold} = require('../controllers/productController')
 
 const { getOrderById, getOrder, createOrder, getAllOrders, getOrderStatus, updateStatus } = require('../controllers/orderController')
 
-const { getUserById } = require('../controllers/userController') //this is used to assign req.profile with userId
+const { getUserById } = require('../controllers/userController') //this is used to assign req.profile with userId, otherwise we get "ACCESS DENIED" error from isAuthenticated middleware
 
 //params
 router.param("userId",getUserById)

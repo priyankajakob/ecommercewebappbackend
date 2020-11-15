@@ -10,6 +10,7 @@ const categoryRoutes = require('./routes/category')
 const productRoutes = require('./routes/product')
 const orderRoutes = require('./routes/order')
 // const stripeRoutes = require('./routes/stripe')
+const paymentBRoutes = require('./routes/paymentB')
 
 const app = express()
 
@@ -27,6 +28,7 @@ app.use('/',categoryRoutes)
 app.use('/',productRoutes)
 app.use('/',orderRoutes)
 // app.use('/',stripeRoutes)
+app.use('/',paymentBRoutes)
 
 //starting server
 app.listen(PORT,()=>{
